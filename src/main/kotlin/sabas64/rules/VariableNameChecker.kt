@@ -1,5 +1,6 @@
-package sabas64
+package sabas64.rules
 
+import sabas64.*
 import sabas64.BasicParser.ArrayExpressionContext
 import sabas64.BasicParser.ArrayLValueContext
 import sabas64.BasicParser.DefStatementContext
@@ -16,7 +17,7 @@ class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseL
         var everAssigned = false
     }
 
-    val env = Environment<IdentifierInfo>()
+    private val env = Environment<IdentifierInfo>()
 
     private fun checkId(map: MutableMap<String, IdentifierInfo>, id: IdentifierContext): IdentifierInfo {
         if (id.baseName.length > 2) {
