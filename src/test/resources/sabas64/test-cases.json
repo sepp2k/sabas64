@@ -1,0 +1,45 @@
+[
+  {
+    "name": "Bouncing Smiley",
+    "basicFileName": "bouncing-smiley.bas",
+    "issues": []
+  },
+  {
+    "name": "Long Variables",
+    "basicSource": "10 xyz = 12\n20 xya = 14\n",
+    "issues": [
+      {
+        "actualLine": 1,
+        "message": "Shorten variable name 'xyz' to two characters - additional characters are ignored."
+      },
+      {
+        "actualLine": 2,
+        "message": "Shorten variable name 'xya' to two characters - additional characters are ignored."
+      },
+      {
+        "actualLine": 2,
+        "message": "Variable name 'xya' conflicts with 'xyz'."
+      }
+    ]
+  },
+  {
+    "name": "Unassigned Variables",
+    "basicSource": "10 print x\n",
+    "issues": [
+      {
+        "actualLine":  1,
+        "message": "Variable 'x' is never assigned a value."
+      }
+    ]
+  },
+  {
+    "name": "Unassigned Variables 2",
+    "basicSource": "10 print x\n20 x = 2\n: rem using a variable before assignment is fine\n",
+    "issues": []
+  },
+  {
+    "name": "Print Syntax",
+    "basicSource": "10 print 1+2 3 x 4;5y,6\n",
+    "parseTree": "(program (line (intLiteral 1 0) (statement print (printArgument (expression (expression (intLiteral 1)) + (expression (intLiteral 2 3)))) (printArgument (expression (identifier x 4)) ;) (printArgument (expression (intLiteral 5))) (printArgument (expression (identifier y)) ,) (printArgument (expression (intLiteral 6)))) \\n) <EOF>)"
+  }
+]

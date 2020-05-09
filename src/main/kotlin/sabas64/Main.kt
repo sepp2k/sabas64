@@ -4,18 +4,26 @@ import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTreeWalker
+import sabas64.BasicParser.ProgramContext
 import sabas64.rules.VariableNameChecker
 import kotlin.system.exitProcess
 
 object Main {
-    fun applyAllRules(input: CharStream, issueReporter: IssueReporter) {
+    fun parse(input: CharStream): ProgramContext {
         val lexer = BasicLexer(input)
         val parser = BasicParser(CommonTokenStream(lexer))
-        val program = parser.program()
+        return parser.program()
+    }
+
+    fun applyAllRules(program: ProgramContext, issueReporter: IssueReporter) {
         val listeners = listOf<BasicListener>(
-            VariableNameChecker(issueReporter)
+                VariableNameChecker(issueReporter)
         )
         ParseTreeWalker.DEFAULT.walk(ProxyListener(listeners), program)
+    }
+
+    fun applyAllRules(input: CharStream, issueReporter: IssueReporter) {
+        applyAllRules(parse(input), issueReporter)
     }
 }
 
