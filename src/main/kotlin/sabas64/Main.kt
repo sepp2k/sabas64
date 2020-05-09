@@ -20,7 +20,7 @@ object Main {
 }
 
 fun main(args: Array<String>) {
-    val issueReporter = IssueReporter()
+    val issueReporter = IssueReporter.StdOut()
     val input = if (args.isEmpty()) {
         CharStreams.fromStream(System.`in`)
     } else {

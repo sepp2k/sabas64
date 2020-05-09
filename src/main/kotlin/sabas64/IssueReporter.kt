@@ -2,14 +2,34 @@ package sabas64
 
 import org.antlr.v4.runtime.ParserRuleContext
 
-class IssueReporter {
-    var issueCount: Int = 0
+interface IssueReporter {
+    val issueCount: Int
+
+    fun reportIssue(issue: Issue)
 
     fun reportIssue(tree: ParserRuleContext, message: String) {
-        val basicLineNumberMessage = tree.lineContext?.lineNumber?.let { " (BASIC line ${it.value})" } ?: ""
-        val fileName = tree.start.inputStream.sourceName
-        val actualLineNumber = tree.start.line
-        println("$fileName:$actualLineNumber$basicLineNumberMessage: $message")
-        issueCount++
+        reportIssue(Issue(tree, message))
+    }
+
+    class StdOut : IssueReporter {
+        override var issueCount: Int = 0
+
+        override fun reportIssue(issue: Issue) {
+            val location = issue.location
+            val basicLineNumberMessage = location.basicLine?.let { " (BASIC line $it)" } ?: ""
+            println("${location.fileName}:${location.actualLine}$basicLineNumberMessage: ${issue.message}")
+            issueCount++
+        }
+    }
+
+    class ToList : IssueReporter {
+        val issues = mutableListOf<Issue>()
+
+        override val issueCount: Int
+            get() = issues.size
+
+        override fun reportIssue(issue: Issue) {
+            issues.add(issue)
+        }
     }
 }
