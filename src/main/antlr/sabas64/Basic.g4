@@ -6,7 +6,7 @@ line: lineNumber=intLiteral? statements+=statement? (':' statements+=statement?)
 
 statement
     : lValue '=' expression #AssignmentStatement
-    | 'print' expression #PrintStatement
+    | 'print' arguments+=printArgument* #PrintStatement
     | 'goto' intLiteral? #GotoStatement
     | 'gosub' intLiteral? #GosubStatement
     | 'return' #ReturnStatement
@@ -37,6 +37,8 @@ expression
     | lhs=expression operator='and' rhs=expression #InfixExpression
     | lhs=expression operator='or' rhs=expression #InfixExpression
     ;
+
+printArgument: expression terminator=(';' | ',')?;
 
 dataItem: ~(',' | ':' | '\n')*;
 
