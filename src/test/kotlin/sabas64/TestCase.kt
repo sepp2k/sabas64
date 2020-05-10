@@ -16,7 +16,9 @@ data class TestCase(
     data class MiniIssue(
         val message: String,
         val actualLine: Int
-    )
+    ) {
+        override fun toString(): String = "$actualLine: $message"
+    }
 
     fun validate() {
         if (basicFileName == null && basicSource == null) {
