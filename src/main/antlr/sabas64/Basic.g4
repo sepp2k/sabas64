@@ -18,7 +18,7 @@ statement
     | 'next' identifier? #NextStatement
     | 'data' items+=dataItem (',' items+=dataItem)* #DataStatement
     | 'read' targets+=lValue (',' targets+=lValue)* #ReadStatement
-    | 'input' (STRING ',')? targets+=lValue (',' targets+=lValue)* #InputStatement
+    | 'input' (STRING ';')? targets+=lValue (',' targets+=lValue)* #InputStatement
     | 'dim' identifier '(' dimensions+=expression (',' dimensions+=expression)* ')' #DimStatement
     ;
 
