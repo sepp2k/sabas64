@@ -5,7 +5,7 @@ program: line* EOF;
 line: lineNumber=intLiteral? statements+=statement? (':' statements+=statement?)* '\n';
 
 statement
-    : lValue '=' expression #AssignmentStatement
+    : 'let'? lValue '=' expression #AssignmentStatement
     | 'print' arguments+=printArgument* #PrintStatement
     | 'goto' intLiteral? #GotoStatement
     | 'gosub' intLiteral? #GosubStatement
