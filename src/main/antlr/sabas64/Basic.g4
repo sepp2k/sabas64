@@ -24,6 +24,7 @@ statement
 
 expression
     : identifier #VariableExpression
+    | ('π' | '~') #PiExpression
     | (intLiteral | floatLiteral) #NumberExpression
     | STRING #StringExpression
     | identifier '(' indices+=expression (',' indices+=expression)* ')' #ArrayExpression
