@@ -10,11 +10,11 @@ statement
     | 'goto' intLiteral? #GotoStatement
     | 'gosub' intLiteral? #GosubStatement
     | 'return' #ReturnStatement
-    | 'poke' expression ',' expression #PokeStatement
+    | 'poke' target=expression ',' value=expression #PokeStatement
     | COMMENT #Comment
     | 'def' 'fn' name=identifier '(' params+=identifier (',' params+=identifier)* ')' '=' body=expression #DefStatement
     | 'if' condition=expression ('then' statements+=statement? (':' statement?)* | ('then' | 'goto') intLiteral?) #IfStatement
-    | 'for' identifier '=' start=expression 'to' to=expression ('step' step=expression)? #ForStatement
+    | 'for' identifier '=' from=expression 'to' to=expression ('step' step=expression)? #ForStatement
     | 'next' identifier? #NextStatement
     | 'data' items+=dataItem (',' items+=dataItem)* #DataStatement
     | 'read' targets+=lValue (',' targets+=lValue)* #ReadStatement
@@ -30,11 +30,11 @@ expression
     | identifier '(' indices+=expression (',' indices+=expression)* ')' #ArrayExpression
     | function '(' arguments+=expression (',' arguments+=expression)* ')' #FunctionCallExpression
     | lhs=expression operator='^' rhs=expression #InfixExpression
-    | operator=('+'|'-') expression #PrefixExpression
+    | operator=('+'|'-') operand=expression #PrefixExpression
     | lhs=expression operator=('*'|'/') rhs=expression #InfixExpression
     | lhs=expression operator=('+'|'-') rhs=expression #InfixExpression
     | lhs=expression operator=('<'|'<='|'>'|'>='|'<>'|'=') rhs=expression #InfixExpression
-    | operator='not' expression #PrefixExpression
+    | operator='not' operand=expression #PrefixExpression
     | lhs=expression operator='and' rhs=expression #InfixExpression
     | lhs=expression operator='or' rhs=expression #InfixExpression
     ;
