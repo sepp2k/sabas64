@@ -63,7 +63,8 @@ DOLLAR: '$';
 PERCENT: '%';
 
 BUILT_IN_FUNCTION
-    : 'peek' | 'sin' | 'cos' | 'tan' | 'cot' | 'si' | 'sqr'
+    : 'abs' | 'asc' | 'atn' | 'chr$' | 'cos' | 'exp' | 'fre' | 'int' | 'left$' | 'len' | 'log' | 'mid$' | 'peek'
+    | 'pos' | 'right$' | 'rnd' | 'sgn' | 'sin' | 'spc' | 'sqr' | 'str$' | 'tab' | 'tan' | 'usr' | 'val'
     ;
 
 LETTER: [a-z];
