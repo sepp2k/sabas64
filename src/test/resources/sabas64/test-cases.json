@@ -52,6 +52,44 @@
     ]
   },
   {
+    "name": "Type Errors",
+    "basicFileName": "type-errors.bas",
+    "issues": [
+      {
+        "actualLine": 9,
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
+      },
+      {
+        "actualLine": 10,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 11,
+        "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 12,
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
+      },
+      {
+        "actualLine": 13,
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
+      },
+      {
+        "actualLine": 14,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 14,
+        "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 15,
+        "message": "Arity mismatch: Given 2, expected 3."
+      }
+    ]
+  },
+  {
     "name": "Print Syntax",
     "basicSource": "10 print 1+2 3 x 4;5y,6\n",
     "parseTree": "(program (line (intLiteral 1 0) (statement print (printArgument (expression (expression (intLiteral 1)) + (expression (intLiteral 2 3)))) (printArgument (expression (identifier x 4)) ;) (printArgument (expression (intLiteral 5))) (printArgument (expression (identifier y)) ,) (printArgument (expression (intLiteral 6)))) \\n) <EOF>)"

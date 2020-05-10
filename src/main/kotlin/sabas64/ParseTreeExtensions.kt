@@ -1,10 +1,7 @@
 package sabas64
 
 import org.antlr.v4.runtime.RuleContext
-import sabas64.BasicParser.IdentifierContext
-import sabas64.BasicParser.IntLiteralContext
-import sabas64.BasicParser.LineContext
-import sabas64.BasicParser.NumberExpressionContext
+import sabas64.BasicParser.*
 
 val RuleContext.lineContext: LineContext?
     get() = when (this) {
@@ -17,6 +14,13 @@ val IntLiteralContext.value: Int
 
 val NumberExpressionContext.value: Float
     get() = text.toFloat()
+
+val LValueContext.type: Type
+    get() = when (this) {
+        is VariableLValueContext -> identifier().type
+        is ArrayLValueContext -> identifier().type
+        else -> throw IllegalStateException("Unknown type of l-value: ${javaClass.simpleName}")
+    }
 
 val IdentifierContext.baseName
     get() = letters.joinToString("") { it.text }
@@ -32,8 +36,8 @@ val IdentifierContext.effectiveName
 
 val IdentifierContext.type
     get() = when (sigil?.type) {
-        null -> Type.FLOAT
-        BasicLexer.PERCENT -> Type.INT
+        null -> Type.NUMBER
+        BasicLexer.PERCENT -> Type.NUMBER
         BasicLexer.DOLLAR -> Type.STRING
         else -> error("")
     }

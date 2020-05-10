@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTreeWalker
 import sabas64.BasicParser.ProgramContext
 import sabas64.rules.LineNumberChecker
+import sabas64.rules.TypeChecker
 import sabas64.rules.VariableNameChecker
 import kotlin.system.exitProcess
 
@@ -19,7 +20,8 @@ object Main {
     fun applyAllRules(program: ProgramContext, issueReporter: IssueReporter) {
         val listeners = listOf<BasicListener>(
             VariableNameChecker(issueReporter),
-            LineNumberChecker(issueReporter)
+            LineNumberChecker(issueReporter),
+            TypeChecker(issueReporter)
         )
         ParseTreeWalker.DEFAULT.walk(ProxyListener(listeners), program)
     }
