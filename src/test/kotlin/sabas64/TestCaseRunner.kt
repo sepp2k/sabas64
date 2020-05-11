@@ -31,14 +31,15 @@ class TestCaseRunner {
                 charStreamFromResource(testCase.basicFileName!!)
             val name = testCase.basicFileName ?: testCase.name
             DynamicTest.dynamicTest(testCase.name) {
-                val tree = Main.parse(input)
+                val reporter = IssueReporter.ToList()
+                val analyzer = Analyzer(reporter)
+                val tree = analyzer.parse(input)
                 testCase.parseTree?.let { expectedTree ->
                     val actual = tree.toStringTree(BasicParser.ruleNames.toList())
                     assertEquals(expectedTree, actual, "Should produce the correct parse tree")
                 }
                 testCase.issues?.let { testCaseIssues ->
-                    val reporter = IssueReporter.ToList()
-                    Main.applyAllRules(tree, reporter)
+                    analyzer.applyAllRules(tree)
                     val expectedIssues = testCaseIssues.sortedWith(compareBy({ it.actualLine }, { it.message }))
                     val actualIssues = reporter.issues
                         .sortedWith(compareBy({ it.location.actualLine }, { it.message }))
