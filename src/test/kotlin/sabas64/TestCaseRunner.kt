@@ -6,6 +6,7 @@ import kotlinx.serialization.json.JsonConfiguration
 import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CharStreams
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import java.nio.channels.Channels
@@ -35,11 +36,12 @@ class TestCaseRunner {
                 val analyzer = Analyzer(reporter)
                 val tree = analyzer.parse(input)
                 testCase.parseTree?.let { expectedTree ->
-                    val actual = tree.toStringTree(BasicParser.ruleNames.toList())
+                    val actual = tree?.toStringTree(BasicParser.ruleNames.toList())
+                    assertNotNull(actual, "Should parse successfully")
                     assertEquals(expectedTree, actual, "Should produce the correct parse tree")
                 }
                 testCase.issues?.let { testCaseIssues ->
-                    analyzer.applyAllRules(tree)
+                    tree?.let(analyzer::applyAllRules)
                     val expectedIssues = testCaseIssues.sortedWith(compareBy({ it.actualLine }, { it.message }))
                     val actualIssues = reporter.issues
                         .sortedWith(compareBy({ it.location.actualLine }, { it.message }))

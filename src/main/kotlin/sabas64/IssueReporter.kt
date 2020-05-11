@@ -1,6 +1,7 @@
 package sabas64
 
 import org.antlr.v4.runtime.ParserRuleContext
+import org.antlr.v4.runtime.Token
 
 interface IssueReporter {
     val issueCount: Int
@@ -9,6 +10,10 @@ interface IssueReporter {
 
     fun reportIssue(tree: ParserRuleContext, message: String) {
         reportIssue(Issue(tree, message))
+    }
+
+    fun reportIssue(token: Token, message: String) {
+        reportIssue(Issue(token, message))
     }
 
     class StdOut : IssueReporter {

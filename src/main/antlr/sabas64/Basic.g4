@@ -73,3 +73,5 @@ STRING: '"' ~'"'* '"';
 COMMENT: 'rem' ~'\n'*;
 
 WS: [ \t\r] -> channel(HIDDEN);
+
+INVALID: .;
