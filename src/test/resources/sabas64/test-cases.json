@@ -96,12 +96,16 @@
   },
   {
     "name": "Missing line break",
-    "basicSource": "10 print 42",
-    "parseTree": "(program (line (intLiteral 1 0) (statement print (printArgument (expression (intLiteral 4 2))))) <EOF>)",
+    "basicSource": "10 print x",
+    "parseTree": "(program (line (intLiteral 1 0) (statement print (printArgument (expression (identifier x))))) <EOF>)",
     "issues": [
       {
         "actualLine": 1,
         "message": "Add a line break at the end of the file."
+      },
+      {
+        "actualLine": 1,
+        "message": "Variable 'x' is never assigned a value."
       }
     ]
   },
