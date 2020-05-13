@@ -5,11 +5,14 @@ import org.antlr.v4.runtime.Token
 
 data class Issue(
     val location: Location,
-    val message: String
+    val message: String,
+    val priority: Priority
 ) {
-    constructor(tree: ParserRuleContext, message: String) : this(Location.fromParseTree(tree), message)
+    constructor(tree: ParserRuleContext, message: String, priority: Priority)
+        : this(Location.fromParseTree(tree), message, priority)
 
-    constructor(token: Token, message: String) : this(Location.fromToken(token), message)
+    constructor(token: Token, message: String, priority: Priority)
+        : this(Location.fromToken(token), message, priority)
 
     data class Location(
         val fileName: String,
@@ -36,5 +39,9 @@ data class Issue(
                 return Location(fileName, null, actualLineNumber, startColumn, endColumn)
             }
         }
+    }
+
+    enum class Priority {
+        WARNING, ERROR
     }
 }

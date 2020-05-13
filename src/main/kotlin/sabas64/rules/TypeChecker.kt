@@ -93,7 +93,7 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
                     }
                 }
             } else {
-                issueReporter.reportIssue(call, "Arity mismatch: Given ${call.arguments.size}, expected ${sig.argumentTypes.size}.")
+                issueReporter.reportIssue(Issue.Priority.ERROR, call, "Arity mismatch: Given ${call.arguments.size}, expected ${sig.argumentTypes.size}.")
                 for (argument in call.arguments) {
                     visit(argument)
                 }
@@ -160,7 +160,7 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
 
     override fun enterForStatement(forStatement: ForStatementContext) {
         if (forStatement.identifier().type != Type.NUMBER) {
-            issueReporter.reportIssue(forStatement.identifier(), "Iteration variables must be numeric.")
+            issueReporter.reportIssue(Issue.Priority.ERROR, forStatement.identifier(), "Iteration variables must be numeric.")
         }
         expectType(forStatement.from, Type.NUMBER)
         expectType(forStatement.to, Type.NUMBER)
@@ -178,7 +178,7 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
     private fun notIo(expression: ExpressionContext): Type {
         val type = expressionTypeChecker.visit(expression)
         if (type == Type.IO) {
-            issueReporter.reportIssue(expression, "SPC and TAB are only allowed as arguments to IO functions like PRINT.")
+            issueReporter.reportIssue(Issue.Priority.ERROR, expression, "SPC and TAB are only allowed as arguments to IO functions like PRINT.")
         }
         return type
     }
@@ -186,7 +186,7 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
     private fun expectType(expression: ExpressionContext, expected: Type) {
         val actual = notIo(expression)
         if (actual != expected && actual != Type.IO) {
-            issueReporter.reportIssue(expression, "Expected expression of type $expected, but got $actual.")
+            issueReporter.reportIssue(Issue.Priority.ERROR, expression, "Expected expression of type $expected, but got $actual.")
         }
     }
 }

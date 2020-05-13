@@ -22,12 +22,12 @@ class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseL
     private fun checkId(map: MutableMap<String, IdentifierInfo>, id: IdentifierContext): IdentifierInfo {
         if (id.baseName.length > 2) {
             val message = "Shorten variable name '${id.fullName}' to two characters - additional characters are ignored."
-            issueReporter.reportIssue(id, message)
+            issueReporter.reportIssue(Issue.Priority.WARNING, id, message)
         }
         val idInfo = map.getOrPut(id.effectiveName) { IdentifierInfo(id) }
         if (idInfo.identifier.fullName != id.fullName) {
             val message = "Variable name '${id.fullName}' conflicts with '${idInfo.identifier.fullName}'."
-            issueReporter.reportIssue(id, message)
+            issueReporter.reportIssue(Issue.Priority.ERROR, id, message)
         }
         return idInfo
     }
@@ -73,7 +73,7 @@ class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseL
             for (idInfo in map.values) {
                 if (!idInfo.everAssigned) {
                     val message = "Variable '${idInfo.identifier.fullName}' is never assigned a value."
-                    issueReporter.reportIssue(idInfo.identifier, message)
+                    issueReporter.reportIssue(Issue.Priority.WARNING, idInfo.identifier, message)
                 }
             }
         }

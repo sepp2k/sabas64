@@ -8,12 +8,12 @@ interface IssueReporter {
 
     fun reportIssue(issue: Issue)
 
-    fun reportIssue(tree: ParserRuleContext, message: String) {
-        reportIssue(Issue(tree, message))
+    fun reportIssue(priority: Issue.Priority, tree: ParserRuleContext, message: String) {
+        reportIssue(Issue(tree, message, priority))
     }
 
-    fun reportIssue(token: Token, message: String) {
-        reportIssue(Issue(token, message))
+    fun reportIssue(priority: Issue.Priority, token: Token, message: String) {
+        reportIssue(Issue(token, message, priority))
     }
 
     class StdOut : IssueReporter {
@@ -22,7 +22,8 @@ interface IssueReporter {
         override fun reportIssue(issue: Issue) {
             val location = issue.location
             val basicLineNumberMessage = location.basicLine?.let { " (BASIC line $it)" } ?: ""
-            println("${location.fileName}:${location.actualLine}$basicLineNumberMessage: ${issue.message}")
+            val prio = issue.priority.toString().toLowerCase().capitalize()
+            println("$prio: ${location.fileName}:${location.actualLine}$basicLineNumberMessage: ${issue.message}")
             issueCount++
         }
     }
