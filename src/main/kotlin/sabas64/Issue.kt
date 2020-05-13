@@ -1,8 +1,10 @@
 package sabas64
 
+import kotlinx.serialization.Serializable
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.Token
 
+@Serializable
 data class Issue(
     val location: Location,
     val message: String,
@@ -14,6 +16,7 @@ data class Issue(
     constructor(token: Token, message: String, priority: Priority)
         : this(Location.fromToken(token), message, priority)
 
+    @Serializable
     data class Location(
         val fileName: String,
         val basicLine: Int?,
