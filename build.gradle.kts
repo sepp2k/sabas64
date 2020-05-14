@@ -3,6 +3,7 @@ plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.serialization") version "1.3.70"
     antlr
+    application
 }
 
 group = "org.example"
@@ -18,6 +19,9 @@ dependencies {
     antlr("org.antlr:antlr4:4.8")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+}
+application {
+    mainClassName = "sabas64.MainKt"
 }
 
 tasks {
