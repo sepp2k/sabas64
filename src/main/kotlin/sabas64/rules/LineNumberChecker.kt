@@ -7,7 +7,7 @@ import sabas64.IssueReporter
 import sabas64.value
 
 class LineNumberChecker(private val issueReporter: IssueReporter) : BasicBaseListener() {
-    var previousLineNumber: Int? = null
+    private var previousLineNumber: Int? = null
 
     override fun enterLine(line: LineContext) {
         previousLineNumber?.let { prev ->
