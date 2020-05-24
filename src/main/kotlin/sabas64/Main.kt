@@ -9,7 +9,7 @@ import kotlin.system.exitProcess
 fun main(args: Array<String>) {
     var fileNameIndex = 0
     var outputJson = false
-    if (args.size > 0 && args[0] == "--json") {
+    if (args.isNotEmpty() && args[0] == "--json") {
         fileNameIndex++
         outputJson = true
     }

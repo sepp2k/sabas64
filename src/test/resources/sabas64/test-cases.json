@@ -92,12 +92,12 @@
   {
     "name": "Print Syntax",
     "basicSource": "10 print 1+2 3 x 4;5y,6\n",
-    "parseTree": "(program (line (intLiteral 1 0) (statement print (printArgument (expression (expression (intLiteral 1)) + (expression (intLiteral 2 3)))) (printArgument (expression (identifier x 4)) ;) (printArgument (expression (intLiteral 5))) (printArgument (expression (identifier y)) ,) (printArgument (expression (intLiteral 6)))) \\n) <EOF>)"
+    "parseTree": "(program (line (intLiteral 1 0) (statement (simpleStatement print (printArgument (expression (expression (intLiteral 1)) + (expression (intLiteral 2 3)))) (printArgument (expression (identifier x 4)) ;) (printArgument (expression (intLiteral 5))) (printArgument (expression (identifier y)) ,) (printArgument (expression (intLiteral 6))))) \\n) <EOF>)"
   },
   {
     "name": "Missing line break",
     "basicSource": "10 print x",
-    "parseTree": "(program (line (intLiteral 1 0) (statement print (printArgument (expression (identifier x))))) <EOF>)",
+    "parseTree": "(program (line (intLiteral 1 0) (statement (simpleStatement print (printArgument (expression (identifier x)))))) <EOF>)",
     "issues": [
       {
         "actualLine": 1,
@@ -116,6 +116,64 @@
       {
         "actualLine": 1,
         "message": "Syntax Error: mismatched input '<EOF>' expecting {'=', '$', '%', LETTER, DIGIT}"
+      }
+    ]
+  },
+  {
+    "name": "Unreachable Code 1",
+    "basicSource": "10 goto 10: print \"hallo\"\n20 print \"goodbye\"\n",
+    "issues": [
+      {
+        "actualLine": 1,
+        "message": "Remove this unreachable code or make it reachable."
+      },
+      {
+        "actualLine": 2,
+        "message": "Remove this unreachable code or make it reachable."
+      }
+    ]
+  },
+  {
+    "name": "Unreachable Code 2",
+    "basicFileName": "unreachable-code.bas",
+    "issues": [
+      {
+        "actualLine": 1,
+        "message": "Remove this unreachable code or make it reachable."
+      },
+      {
+        "actualLine": 2,
+        "message": "Remove this unreachable code or make it reachable."
+      },
+      {
+        "actualLine": 8,
+        "message": "Remove this unreachable code or make it reachable."
+      }
+    ]
+  },
+  {
+    "name": "Control Flow Errors",
+    "basicFileName": "control-flow-errors.bas",
+    "issues": [
+      {
+        "actualLine": 3,
+        "message": "Change this next statement to close the 'y' loop."
+      },
+      {
+        "actualLine": 4,
+        "message": "Change this next statement to close the 'x' loop."
+      },
+      {
+        "actualLine": 5,
+        "message": "Remove this unmatched next statement."
+      },
+      {
+        "actualLine": 6,
+        "message": "Add a next statement for this for loop."
+      },
+      {
+        "actualLine": 7,
+        "message": "Fix this jump to a non-existent line number."
       }
     ]
   }

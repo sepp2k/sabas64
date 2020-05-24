@@ -15,6 +15,9 @@ val IntLiteralContext.value: Int
 val NumberExpressionContext.value: Float
     get() = text.toFloat()
 
+val JumpTargetContext.value: Int
+    get() = intLiteral()?.value ?: 0
+
 val LValueContext.type: Type
     get() = when (this) {
         is VariableLValueContext -> identifier().type

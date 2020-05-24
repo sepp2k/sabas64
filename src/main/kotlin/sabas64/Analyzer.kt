@@ -3,10 +3,8 @@ package sabas64
 import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTreeWalker
-import sabas64.rules.LineNumberChecker
-import sabas64.rules.SyntaxChecker
-import sabas64.rules.TypeChecker
-import sabas64.rules.VariableNameChecker
+import sabas64.cfg.CfgBuilder
+import sabas64.rules.*
 
 class Analyzer(private val issueReporter: IssueReporter) {
     fun parse(input: CharStream): BasicParser.ProgramContext? {
@@ -30,6 +28,15 @@ class Analyzer(private val issueReporter: IssueReporter) {
             TypeChecker(issueReporter)
         )
         ParseTreeWalker.DEFAULT.walk(ProxyListener(listeners), program)
+
+        val cfgRules = listOf<CfgRule>(
+            DeadCodeChecker(issueReporter)
+        )
+        CfgBuilder.build(program, issueReporter)?.let { cfg ->
+            for (rule in cfgRules) {
+                rule.processCfg(cfg)
+            }
+        }
     }
 
     fun applyAllRules(input: CharStream) {

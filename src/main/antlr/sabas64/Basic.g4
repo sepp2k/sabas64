@@ -5,18 +5,24 @@ program: line* EOF;
 line: lineNumber=intLiteral? statements+=statement? (':' statements+=statement?)* '\n';
 
 statement
-    : 'let'? lValue '=' expression #AssignmentStatement
-    | 'print' arguments+=printArgument* #PrintStatement
-    | 'goto' intLiteral? #GotoStatement
-    | 'gosub' intLiteral? #GosubStatement
+    : simpleStatement #SimpleStatementWrapper
+    | 'goto' jumpTarget #GotoStatement
     | 'return' #ReturnStatement
-    | 'poke' target=expression ',' value=expression #PokeStatement
+    | 'end' #EndStatement
     | COMMENT #Comment
-    | 'def' 'fn' name=identifier '(' params+=identifier (',' params+=identifier)* ')' '=' body=expression #DefStatement
-    | 'if' condition=expression ('then' statements+=statement? (':' statement?)* | ('then' | 'goto') intLiteral?) #IfStatement
+    | 'if' condition=expression ('then' statements+=statement? (':' statement?)* | ('then' | 'goto') jumpTarget) #IfStatement
+    | 'on' value=expression jump=('goto'|'gosub') targets+=jumpTarget (',' jumpTarget)* #OnStatement
     | 'for' identifier '=' from=expression 'to' to=expression ('step' step=expression)? #ForStatement
     | 'next' identifier? #NextStatement
     | 'data' items+=dataItem (',' items+=dataItem)* #DataStatement
+    ;
+
+simpleStatement
+    : 'let'? lValue '=' expression #AssignmentStatement
+    | 'gosub' jumpTarget #GosubStatement
+    | 'print' arguments+=printArgument* #PrintStatement
+    | 'poke' target=expression ',' value=expression #PokeStatement
+    | 'def' 'fn' name=identifier '(' params+=identifier (',' params+=identifier)* ')' '=' body=expression #DefStatement
     | 'read' targets+=lValue (',' targets+=lValue)* #ReadStatement
     | 'input' (STRING ';')? targets+=lValue (',' targets+=lValue)* #InputStatement
     | 'dim' identifier '(' dimensions+=expression (',' dimensions+=expression)* ')' #DimStatement
@@ -54,6 +60,8 @@ lValue
     ;
 
 identifier: letters+=LETTER letters+=(LETTER | DIGIT)* sigil=('%'|'$')?;
+
+jumpTarget: intLiteral?;
 
 intLiteral: DIGIT+;
 
