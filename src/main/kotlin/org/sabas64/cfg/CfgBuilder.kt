@@ -179,7 +179,7 @@ class CfgBuilder private constructor(private val issueReporter: IssueReporter) :
      */
     private fun cleanUpUnreachableGeneratedBlocks() {
         allBasicBlocks.removeIf { block ->
-            if (block.simpleStatements.isEmpty() && block.terminator.tree == null && !block.isReachable) {
+            if (block.simpleStatements.isEmpty() && block.terminator.tree == null && !block.isEntry && block.predecessors.isEmpty()) {
                 for (successor in block.successors) {
                     (successor as BasicBlockImpl).predecessors.remove(block)
                 }

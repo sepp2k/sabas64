@@ -6,3 +6,4 @@
 100 print "also reachable"
 110 return
 120 print "not reachable 3"
+130 goto 120

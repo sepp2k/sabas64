@@ -47,6 +47,7 @@ class TestCaseRunner {
                         .sortedWith(compareBy({ it.location.actualLine }, { it.message }))
                         .map { TestCase.MiniIssue(it.message, it.location.actualLine) }
                     assertEquals(expectedIssues, actualIssues, "Should report the right issues")
+                    assertEquals(expectedIssues.size, reporter.issueCount, "Should report the correct number of issues")
                     for (issue in reporter.issues) {
                         assertEquals(name, issue.location.fileName, "Should report issues with the correct file name")
                     }

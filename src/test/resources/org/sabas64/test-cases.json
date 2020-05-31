@@ -148,6 +148,10 @@
       {
         "actualLine": 8,
         "message": "Remove this unreachable code or make it reachable."
+      },
+      {
+        "actualLine": 9,
+        "message": "Remove this unreachable code or make it reachable."
       }
     ]
   },

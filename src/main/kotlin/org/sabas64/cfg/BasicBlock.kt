@@ -12,7 +12,4 @@ interface BasicBlock {
 
     val isEntry: Boolean
         get() = isProgramEntry || isSubroutineEntry
-
-    val isReachable: Boolean
-        get() = isEntry || predecessors.isNotEmpty()
 }
