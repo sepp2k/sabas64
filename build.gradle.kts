@@ -4,6 +4,8 @@ plugins {
     kotlin("plugin.serialization") version "1.3.70"
     antlr
     application
+    id("org.sonarqube") version "3.0"
+    jacoco
 }
 
 group = "org.example"
@@ -20,6 +22,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
 }
+
 application {
     mainClassName = "sabas64.MainKt"
 }
@@ -38,4 +41,17 @@ tasks {
     test {
         useJUnitPlatform()
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.isEnabled = true
+        csv.isEnabled = false
+        html.isEnabled = false
+    }
+}
+
+tasks.sonarqube {
+    dependsOn(tasks.jacocoTestReport)
 }
