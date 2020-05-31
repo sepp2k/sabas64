@@ -1,10 +1,10 @@
-package sabas64.cfg
+package org.sabas64.cfg
 
-import sabas64.BasicParser
+import org.sabas64.BasicParser.DataItemContext
 
 class Cfg(
     val programEntry: BasicBlock,
     val subroutines: Map<Int, BasicBlock>,
     val allBlocks: List<BasicBlock>,
-    val dataItems: List<BasicParser.DataItemContext>
+    val dataItems: List<DataItemContext>
 )

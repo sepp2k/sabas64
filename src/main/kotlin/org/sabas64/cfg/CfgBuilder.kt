@@ -1,9 +1,9 @@
-package sabas64.cfg
+package org.sabas64.cfg
 
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.ParseTreeWalker
-import sabas64.*
-import sabas64.BasicParser.*
+import org.sabas64.*
+import org.sabas64.BasicParser.*
 import java.util.ArrayDeque
 
 class CfgBuilder private constructor(private val issueReporter: IssueReporter) : BasicBaseVisitor<Unit>() {

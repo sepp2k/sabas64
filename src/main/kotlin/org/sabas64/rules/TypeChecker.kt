@@ -1,8 +1,8 @@
-package sabas64.rules
+package org.sabas64.rules
 
 import org.antlr.v4.runtime.tree.RuleNode
-import sabas64.*
-import sabas64.BasicParser.*
+import org.sabas64.*
+import org.sabas64.BasicParser.*
 
 class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener() {
     /**

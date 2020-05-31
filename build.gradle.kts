@@ -33,7 +33,7 @@ tasks {
         kotlinOptions.jvmTarget = "1.8"
     }
     generateGrammarSource {
-        arguments = arguments + listOf("-visitor", "-package", "sabas64")
+        arguments = arguments + listOf("-visitor", "-package", "org.sabas64")
     }
     test {
         useJUnitPlatform()

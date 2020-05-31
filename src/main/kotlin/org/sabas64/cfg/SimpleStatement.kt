@@ -1,6 +1,6 @@
-package sabas64.cfg
+package org.sabas64.cfg
 
-import sabas64.BasicParser.*
+import org.sabas64.BasicParser.*
 
 sealed class SimpleStatement {
     open val tree: SimpleStatementContext? = null

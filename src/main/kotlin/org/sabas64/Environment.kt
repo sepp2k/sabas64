@@ -1,4 +1,4 @@
-package sabas64
+package org.sabas64
 
 class Environment<T> {
     val variables = mutableMapOf<String, T>()

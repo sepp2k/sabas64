@@ -1,4 +1,4 @@
-package sabas64
+package org.sabas64
 
 import kotlinx.serialization.Serializable
 

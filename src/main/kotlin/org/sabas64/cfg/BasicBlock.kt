@@ -1,4 +1,4 @@
-package sabas64.cfg
+package org.sabas64.cfg
 
 interface BasicBlock {
     val simpleStatements: List<SimpleStatement>

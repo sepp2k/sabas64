@@ -1,10 +1,10 @@
-package sabas64
+package org.sabas64
 
 import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTreeWalker
-import sabas64.cfg.CfgBuilder
-import sabas64.rules.*
+import org.sabas64.cfg.CfgBuilder
+import org.sabas64.rules.*
 
 class Analyzer(private val issueReporter: IssueReporter) {
     fun parse(input: CharStream): BasicParser.ProgramContext? {

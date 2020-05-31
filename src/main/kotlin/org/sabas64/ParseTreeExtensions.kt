@@ -1,7 +1,7 @@
-package sabas64
+package org.sabas64
 
 import org.antlr.v4.runtime.RuleContext
-import sabas64.BasicParser.*
+import org.sabas64.BasicParser.*
 
 val RuleContext.lineContext: LineContext?
     get() = when (this) {

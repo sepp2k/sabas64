@@ -1,16 +1,7 @@
-package sabas64.rules
+package org.sabas64.rules
 
-import sabas64.*
-import sabas64.BasicParser.ArrayExpressionContext
-import sabas64.BasicParser.ArrayLValueContext
-import sabas64.BasicParser.DefStatementContext
-import sabas64.BasicParser.DimStatementContext
-import sabas64.BasicParser.ForStatementContext
-import sabas64.BasicParser.IdentifierContext
-import sabas64.BasicParser.ProgramContext
-import sabas64.BasicParser.UserDefinedFunctionContext
-import sabas64.BasicParser.VariableExpressionContext
-import sabas64.BasicParser.VariableLValueContext
+import org.sabas64.*
+import org.sabas64.BasicParser.*
 
 class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseListener() {
     class IdentifierInfo(val identifier: IdentifierContext) {

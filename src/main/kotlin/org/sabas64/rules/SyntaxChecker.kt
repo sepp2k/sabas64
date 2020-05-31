@@ -1,11 +1,11 @@
-package sabas64.rules
+package org.sabas64.rules
 
 import org.antlr.v4.runtime.BaseErrorListener
 import org.antlr.v4.runtime.RecognitionException
 import org.antlr.v4.runtime.Recognizer
 import org.antlr.v4.runtime.Token
-import sabas64.Issue
-import sabas64.IssueReporter
+import org.sabas64.Issue
+import org.sabas64.IssueReporter
 
 class SyntaxChecker(private val issueReporter: IssueReporter) : BaseErrorListener() {
     var validSyntax = true

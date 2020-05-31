@@ -1,9 +1,9 @@
-package sabas64.rules
+package org.sabas64.rules
 
 import org.antlr.v4.runtime.ParserRuleContext
-import sabas64.Issue
-import sabas64.IssueReporter
-import sabas64.cfg.Cfg
+import org.sabas64.Issue
+import org.sabas64.IssueReporter
+import org.sabas64.cfg.Cfg
 
 class DeadCodeChecker(private val issueReporter: IssueReporter) : CfgRule {
     override fun processCfg(cfg: Cfg) {

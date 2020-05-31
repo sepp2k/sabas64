@@ -1,10 +1,10 @@
-package sabas64.rules
+package org.sabas64.rules
 
-import sabas64.BasicBaseListener
-import sabas64.BasicParser.LineContext
-import sabas64.Issue
-import sabas64.IssueReporter
-import sabas64.value
+import org.sabas64.BasicBaseListener
+import org.sabas64.BasicParser.LineContext
+import org.sabas64.Issue
+import org.sabas64.IssueReporter
+import org.sabas64.value
 
 class LineNumberChecker(private val issueReporter: IssueReporter) : BasicBaseListener() {
     private var previousLineNumber: Int? = null
