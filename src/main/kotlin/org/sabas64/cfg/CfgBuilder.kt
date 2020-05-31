@@ -67,7 +67,7 @@ class CfgBuilder private constructor(private val issueReporter: IssueReporter) :
 
         currentBasicBlock.terminator = Terminator.End(null)
         for (loopInfo in loopStack) {
-            error(loopInfo.forLoop, "Add a next statement for this for loop.")
+            error(loopInfo.forLoop, "Add a NEXT statement for this for loop.")
         }
         for (target in jumpTargetContexts) {
             if (!allLineNumbers.contains(target.value)) {
@@ -158,7 +158,7 @@ class CfgBuilder private constructor(private val issueReporter: IssueReporter) :
 
     override fun visitNextStatement(next: NextStatementContext) {
         if (loopStack.isEmpty()) {
-            error(next, "Remove this unmatched next statement.")
+            error(next, "Remove this unmatched NEXT statement.")
             return
         }
         val loopInfo = loopStack.pop()
@@ -168,7 +168,7 @@ class CfgBuilder private constructor(private val issueReporter: IssueReporter) :
         currentBasicBlock = loopInfo.afterLoop
         next.identifier()?.let { id ->
             if (id.effectiveName != loopId.effectiveName) {
-                error(id, "Change this next statement to close the '${loopId.fullName}' loop.")
+                error(id, "Change this NEXT statement to close the '${loopId.fullName}' loop.")
             }
         }
     }

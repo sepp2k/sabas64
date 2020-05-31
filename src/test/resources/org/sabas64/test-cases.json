@@ -161,19 +161,19 @@
     "issues": [
       {
         "actualLine": 3,
-        "message": "Change this next statement to close the 'y' loop."
+        "message": "Change this NEXT statement to close the 'y' loop."
       },
       {
         "actualLine": 4,
-        "message": "Change this next statement to close the 'x' loop."
+        "message": "Change this NEXT statement to close the 'x' loop."
       },
       {
         "actualLine": 5,
-        "message": "Remove this unmatched next statement."
+        "message": "Remove this unmatched NEXT statement."
       },
       {
         "actualLine": 6,
-        "message": "Add a next statement for this for loop."
+        "message": "Add a NEXT statement for this for loop."
       },
       {
         "actualLine": 7,
