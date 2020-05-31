@@ -30,7 +30,8 @@ class Analyzer(private val issueReporter: IssueReporter) {
         ParseTreeWalker.DEFAULT.walk(ProxyListener(listeners), program)
 
         val cfgRules = listOf<CfgRule>(
-            DeadCodeChecker(issueReporter)
+            DeadCodeChecker(issueReporter),
+            ReturnChecker(issueReporter, program)
         )
         CfgBuilder.build(program, issueReporter)?.let { cfg ->
             for (rule in cfgRules) {

@@ -14,4 +14,16 @@ abstract class DepthFistVisitor {
     }
 
     abstract fun visit(block: BasicBlock)
+
+    companion object {
+        fun dfs(startBlock: BasicBlock, f: (BasicBlock) -> Unit) {
+            FromFunction(f).traverse(startBlock)
+        }
+    }
+
+    private class FromFunction(private val f: (BasicBlock) -> Unit) : DepthFistVisitor() {
+        override fun visit(block: BasicBlock) {
+            f(block)
+        }
+    }
 }

@@ -180,5 +180,42 @@
         "message": "Fix this jump to a non-existent line number."
       }
     ]
+  },
+  {
+    "name": "Return Statements",
+    "basicFileName": "returns.bas",
+    "issues": [
+      {
+        "actualLine": 1,
+        "message": "Change this GOSUB to GOTO or add a RETURN to the called subroutine."
+      },
+      {
+        "actualLine": 5,
+        "message": "Change this GOSUB to GOTO or add a RETURN to the called subroutine."
+      },
+      {
+        "actualLine": 6,
+        "message": "Change this GOSUB to GOTO or add a RETURN to the called subroutine."
+      },
+      {
+        "actualLine": 7,
+        "message": "Remove this RETURN statement or prevent it from being reachable outside of a subroutine."
+      }
+    ]
+  },
+  {
+    "name": "Return Statements 2",
+    "basicSource": "10 gosub 20\n20 return\n",
+    "issues": [
+      {
+        "actualLine": 2,
+        "message": "Remove this RETURN statement or prevent it from being reachable outside of a subroutine."
+      }
+    ]
+  },
+  {
+    "name": "Return Statements 3",
+    "basicSource": "10 gosub 20\n15 end\n20 return\n",
+    "issues": []
   }
 ]
