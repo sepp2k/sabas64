@@ -27,6 +27,14 @@ application {
     mainClassName = "sabas64.MainKt"
 }
 
+sonarqube {
+  properties {
+    property("sonar.projectKey", "sepp2k_sabas64")
+    property("sonar.organization", "sepp2k")
+    property("sonar.host.url", "https://sonarcloud.io")
+  }
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
