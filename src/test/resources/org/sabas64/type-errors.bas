@@ -44,3 +44,8 @@
 520 next s$
 530 if 1 > "b" then
 540 if "a" >= 4 then
+550 rem functions with arguments of arbitrary types
+560 print fre(12)
+570 print fre("")
+580 rem but not IO
+590 print fre(spc(42))

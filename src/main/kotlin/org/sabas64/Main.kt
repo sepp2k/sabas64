@@ -6,7 +6,7 @@ import kotlinx.serialization.json.JsonConfiguration
 import org.antlr.v4.runtime.CharStreams
 import kotlin.system.exitProcess
 
-fun main(args: Array<String>) {
+fun intMain(args: Array<String>): Int {
     var fileNameIndex = 0
     var outputJson = false
     if (args.isNotEmpty() && args[0] == "--json") {
@@ -34,5 +34,9 @@ fun main(args: Array<String>) {
             println("No issues found")
         }
     }
-    exitProcess(issueReporter.issueCount)
+    return issueReporter.issueCount
+}
+
+fun main(args: Array<String>) {
+    exitProcess(intMain(args))
 }

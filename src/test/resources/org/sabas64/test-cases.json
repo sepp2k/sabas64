@@ -184,6 +184,10 @@
       {
         "actualLine": 46,
         "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 51,
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
       }
     ]
   },
