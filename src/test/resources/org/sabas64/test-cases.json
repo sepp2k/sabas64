@@ -38,6 +38,28 @@
     "issues": []
   },
   {
+    "name": "Shadowing",
+    "basicSource": "10 xyz = 42\n20 def fn f(xya, y) = xyz / y\n30 print fn f(1,2)\n",
+    "issues": [
+      {
+        "actualLine": 1,
+        "message": "Shorten variable name 'xyz' to two characters - additional characters are ignored."
+      },
+      {
+        "actualLine": 2,
+        "message": "Shorten variable name 'xya' to two characters - additional characters are ignored."
+      },
+      {
+        "actualLine": 2,
+        "message": "Shorten variable name 'xyz' to two characters - additional characters are ignored."
+      },
+      {
+        "actualLine": 2,
+        "message": "Variable name 'xyz' conflicts with 'xya'."
+      }
+    ]
+  },
+  {
     "name": "Line Numbers",
     "basicSource": "10 print \"hello\"\nx = 2\n5 print \"bye\"\n",
     "issues": [
@@ -56,20 +78,16 @@
     "basicFileName": "type-errors.bas",
     "issues": [
       {
-        "actualLine": 9,
-        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
-      },
-      {
         "actualLine": 10,
-        "message": "Expected expression of type NUMBER, but got STRING."
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
       },
       {
         "actualLine": 11,
-        "message": "Expected expression of type STRING, but got NUMBER."
+        "message": "Expected expression of type NUMBER, but got STRING."
       },
       {
         "actualLine": 12,
-        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
+        "message": "Expected expression of type STRING, but got NUMBER."
       },
       {
         "actualLine": 13,
@@ -77,15 +95,71 @@
       },
       {
         "actualLine": 14,
-        "message": "Expected expression of type NUMBER, but got STRING."
-      },
-      {
-        "actualLine": 14,
-        "message": "Expected expression of type STRING, but got NUMBER."
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
       },
       {
         "actualLine": 15,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 15,
+        "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 16,
         "message": "Arity mismatch: Given 2, expected 3."
+      },
+      {
+        "actualLine": 17,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 18,
+        "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 27,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 28,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 29,
+        "message": "SPC and TAB are only allowed as arguments to IO functions like PRINT."
+      },
+      {
+        "actualLine": 29,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 30,
+        "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 31,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 38,
+        "message": "User-defined functions can't have sigils."
+      },
+      {
+        "actualLine": 38,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 39,
+        "message": "User-defined function parameters can't have sigils."
+      },
+      {
+        "actualLine": 40,
+        "message": "Expected expression of type STRING, but got NUMBER."
+      },
+      {
+        "actualLine": 41,
+        "message": "Expected expression of type NUMBER, but got STRING."
       }
     ]
   },
