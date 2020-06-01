@@ -4,7 +4,7 @@
 40 z%= 42
 45 x = z%
 50 y$ = mid$(y$, 2, 3)
-60 if y$ then print "y$ is not empty"
+60 if y$ then print "y$ is not empty": if "a" <= "z" goto 70
 70 if x then print "x is not zero"
 80 rem and now the errors
 90 x = spc(4)
@@ -39,3 +39,8 @@
 470 def fn h(s$) = 42: rem string arguments not allowed
 480 s$ = fn f(42)
 490 x = fn f("hallo")
+500 rem type-errors in control flow
+510 for s$ = "a" to "z" step "x"
+520 next s$
+530 if 1 > "b" then
+540 if "a" >= 4 then

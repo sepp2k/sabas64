@@ -160,6 +160,30 @@
       {
         "actualLine": 41,
         "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 43,
+        "message": "Iteration variables must be numeric."
+      },
+      {
+        "actualLine": 43,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 43,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 43,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 45,
+        "message": "Expected expression of type NUMBER, but got STRING."
+      },
+      {
+        "actualLine": 46,
+        "message": "Expected expression of type STRING, but got NUMBER."
       }
     ]
   },
