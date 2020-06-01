@@ -151,6 +151,14 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
     }
 
     override fun enterDefStatement(def: DefStatementContext) {
+        if (def.name.sigil != null) {
+            issueReporter.reportIssue(Issue.Priority.ERROR, def.name.sigil, "User-defined functions can't have sigils.")
+        }
+        for (parameter in def.params) {
+            if (parameter.sigil != null) {
+                issueReporter.reportIssue(Issue.Priority.ERROR, parameter.sigil, "User-defined function parameters can't have sigils.")
+            }
+        }
         expectType(def.body, Type.NUMBER)
     }
 
