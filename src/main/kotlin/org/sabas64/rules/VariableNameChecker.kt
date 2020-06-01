@@ -4,11 +4,11 @@ import org.sabas64.*
 import org.sabas64.BasicParser.*
 
 class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseListener() {
-    class IdentifierInfo(val identifier: IdentifierContext) {
-        var everAssigned = false
-    }
+    class IdentifierInfo(val identifier: IdentifierContext, var everAssigned: Boolean = false)
 
     private val env = Environment<IdentifierInfo>()
+
+    private var functionParameters: MutableMap<String, IdentifierInfo>? = null
 
     private fun checkId(map: MutableMap<String, IdentifierInfo>, id: IdentifierContext): IdentifierInfo {
         if (id.baseName.length > 2) {
@@ -24,6 +24,12 @@ class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseL
     }
 
     override fun enterVariableExpression(variable: VariableExpressionContext) {
+        functionParameters?.let { params ->
+            if (params.containsKey(variable.identifier().effectiveName)) {
+                checkId(params, variable.identifier())
+                return
+            }
+        }
         checkId(env.variables, variable.identifier())
     }
 
@@ -48,6 +54,15 @@ class VariableNameChecker(private val issueReporter: IssueReporter) : BasicBaseL
     override fun enterDefStatement(funDef: DefStatementContext) {
         val idInfo = checkId(env.functions, funDef.name)
         idInfo.everAssigned = true
+        val functionParameters = mutableMapOf<String, IdentifierInfo>()
+        for (param in funDef.params) {
+            checkId(functionParameters, param)
+        }
+        this.functionParameters = functionParameters
+    }
+
+    override fun exitDefStatement(funDef: DefStatementContext) {
+        functionParameters = null
     }
 
     override fun enterUserDefinedFunction(function: UserDefinedFunctionContext) {
