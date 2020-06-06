@@ -59,7 +59,7 @@ lValue
     | identifier '(' indices+=expression (',' indices+=expression)* ')' #ArrayLValue
     ;
 
-identifier: letters+=LETTER letters+=(LETTER | DIGIT)* sigil=('%'|'$')?;
+identifier: letters+=LETTER letters+=(LETTER | DIGIT)* ('%'|'$')?;
 
 jumpTarget: intLiteral?;
 

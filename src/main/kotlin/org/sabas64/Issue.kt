@@ -3,6 +3,7 @@ package org.sabas64
 import kotlinx.serialization.Serializable
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.Token
+import org.antlr.v4.runtime.tree.TerminalNode
 
 @Serializable
 data class Issue(
@@ -16,6 +17,9 @@ data class Issue(
     constructor(token: Token, message: String, priority: Priority)
         : this(Location.fromToken(token), message, priority)
 
+    constructor(node: TerminalNode, message: String, priority: Priority)
+            : this(Location.fromToken(node.symbol).copy(basicLine = node.basicLineNumber), message, priority)
+
     @Serializable
     data class Location(
         val fileName: String,
@@ -27,7 +31,7 @@ data class Issue(
         companion object {
             fun fromParseTree(tree: ParserRuleContext): Location {
                 val fileName = tree.start.inputStream.sourceName
-                val basicLineNumber = tree.lineContext?.lineNumber?.value
+                val basicLineNumber = tree.basicLineNumber
                 val actualLineNumber = tree.start.line
                 val startColumn = tree.start.charPositionInLine
                 val endColumn = tree.stop.charPositionInLine + tree.stop.text.length

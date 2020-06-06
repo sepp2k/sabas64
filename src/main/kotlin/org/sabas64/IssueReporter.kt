@@ -2,6 +2,7 @@ package org.sabas64
 
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.Token
+import org.antlr.v4.runtime.tree.TerminalNode
 
 interface IssueReporter {
     val issueCount: Int
@@ -14,6 +15,10 @@ interface IssueReporter {
 
     fun reportIssue(priority: Issue.Priority, token: Token, message: String) {
         reportIssue(Issue(token, message, priority))
+    }
+
+    fun reportIssue(priority: Issue.Priority, node: TerminalNode, message: String) {
+        reportIssue(Issue(node, message, priority))
     }
 
     class StdOut : IssueReporter {

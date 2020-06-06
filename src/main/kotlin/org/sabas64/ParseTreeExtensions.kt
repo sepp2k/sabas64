@@ -1,15 +1,19 @@
 package org.sabas64
 
-import org.antlr.v4.runtime.RuleContext
+import org.antlr.v4.runtime.tree.Tree
 import org.apache.logging.log4j.LogManager
 import org.sabas64.BasicParser.*
 
-val RuleContext.lineContext: LineContext?
 private val logger = LogManager.getLogger()
+
+val Tree.lineContext: LineContext?
     get() = when (this) {
         is LineContext -> this
         else -> parent?.lineContext
     }
+
+val Tree.basicLineNumber: Int?
+    get() = lineContext?.lineNumber?.value
 
 val IntLiteralContext.value: Int
     get() = text.toInt()
@@ -43,7 +47,7 @@ val IdentifierContext.effectiveName
     get() = "${baseName.take(2)}$suffix"
 
 val IdentifierContext.type
-    get() = when (sigil?.type) {
+    get() = when (sigil?.symbol?.type) {
         null -> Type.NUMBER
         BasicLexer.PERCENT -> Type.NUMBER
         BasicLexer.DOLLAR -> Type.STRING
@@ -52,3 +56,6 @@ val IdentifierContext.type
             Type.NUMBER
         }
     }
+
+val IdentifierContext.sigil
+    get() = PERCENT() ?: DOLLAR()
