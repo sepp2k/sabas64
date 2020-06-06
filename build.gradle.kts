@@ -24,7 +24,7 @@ dependencies {
 }
 
 application {
-    mainClassName = "sabas64.MainKt"
+    mainClassName = "org.sabas64.MainKt"
 }
 
 sonarqube {
