@@ -301,6 +301,10 @@
       },
       {
         "actualLine": 7,
+        "message": "Change this GOSUB to GOTO or add a RETURN to the called subroutine."
+      },
+      {
+        "actualLine": 9,
         "message": "Remove this RETURN statement or prevent it from being reachable outside of a subroutine."
       }
     ]

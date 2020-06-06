@@ -34,8 +34,20 @@ class ReturnChecker(private val issueReporter: IssueReporter, private val progra
     }
 
     override fun enterGosubStatement(gosub: GosubStatementContext) {
-        if (subroutinesWithoutReturn.contains(gosub.jumpTarget().value)) {
-            issueReporter.reportIssue(Issue.Priority.ERROR, gosub, "Change this GOSUB to GOTO or add a RETURN to the called subroutine.")
+        checkGosub(gosub.jumpTarget())
+    }
+
+    override fun enterOnStatement(on: OnStatementContext) {
+        if (on.isGosub) {
+            for (target in on.targets) {
+                checkGosub(target)
+            }
+        }
+    }
+
+    private fun checkGosub(target: JumpTargetContext) {
+        if (subroutinesWithoutReturn.contains(target.value)) {
+            issueReporter.reportIssue(Issue.Priority.ERROR, target, "Change this GOSUB to GOTO or add a RETURN to the called subroutine.")
         }
     }
 }

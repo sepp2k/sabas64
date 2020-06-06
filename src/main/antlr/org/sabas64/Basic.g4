@@ -11,7 +11,7 @@ statement
     | 'end' #EndStatement
     | COMMENT #Comment
     | 'if' condition=expression ('then' statements+=statement? (':' statement?)* | ('then' | 'goto') jumpTarget) #IfStatement
-    | 'on' value=expression jump=('goto'|'gosub') targets+=jumpTarget (',' jumpTarget)* #OnStatement
+    | 'on' value=expression jump=('goto'|'gosub') targets+=jumpTarget (',' targets+=jumpTarget)* #OnStatement
     | 'for' identifier '=' from=expression 'to' to=expression ('step' step=expression)? #ForStatement
     | 'next' identifier? #NextStatement
     | 'data' items+=dataItem (',' items+=dataItem)* #DataStatement

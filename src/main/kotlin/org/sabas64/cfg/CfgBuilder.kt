@@ -125,13 +125,15 @@ class CfgBuilder private constructor(private val issueReporter: IssueReporter) :
     }
 
     override fun visitOnStatement(onStatement: OnStatementContext) {
-        val nextBlock = newBasicBlock()
-        currentBasicBlock.terminator = Terminator.SwitchBranch(
-            onStatement.value,
-            onStatement.targets.map { jumpTargets.getValue(it.value) },
-            nextBlock, onStatement
-        )
-        currentBasicBlock = nextBlock
+        if (onStatement.isGoto) {
+            val nextBlock = newBasicBlock()
+            currentBasicBlock.terminator = Terminator.SwitchBranch(
+                onStatement.value,
+                onStatement.targets.map { jumpTargets.getValue(it.value) },
+                nextBlock, onStatement
+            )
+            currentBasicBlock = nextBlock
+        }
     }
 
     override fun visitIfStatement(ifStatement: IfStatementContext) {
@@ -221,7 +223,7 @@ class CfgBuilder private constructor(private val issueReporter: IssueReporter) :
 
         override fun enterOnStatement(onStatement: OnStatementContext) {
             for (target in onStatement.targets) {
-                if (onStatement.jump.text == "goto") {
+                if (onStatement.isGoto) {
                     processGoto(target)
                 } else {
                     processGosub(target)

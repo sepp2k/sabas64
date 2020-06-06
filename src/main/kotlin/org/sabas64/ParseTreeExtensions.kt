@@ -59,3 +59,10 @@ val IdentifierContext.type
 
 val IdentifierContext.sigil
     get() = PERCENT() ?: DOLLAR()
+
+val OnStatementContext.isGoto
+    // The call to toLowerCase is in anticipitation of support for upper-case keywords. It is currently unnecessary.
+    get() = jump.text.toLowerCase() == "goto"
+
+val OnStatementContext.isGosub
+    get() = !isGoto
