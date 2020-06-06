@@ -1,9 +1,11 @@
 package org.sabas64
 
 import org.antlr.v4.runtime.RuleContext
+import org.apache.logging.log4j.LogManager
 import org.sabas64.BasicParser.*
 
 val RuleContext.lineContext: LineContext?
+private val logger = LogManager.getLogger()
     get() = when (this) {
         is LineContext -> this
         else -> parent?.lineContext
@@ -22,7 +24,10 @@ val LValueContext.type: Type
     get() = when (this) {
         is VariableLValueContext -> identifier().type
         is ArrayLValueContext -> identifier().type
-        else -> throw IllegalStateException("Unknown type of l-value: ${javaClass.simpleName}")
+        else -> {
+            logger.error("Unknown type of l-value: ${javaClass.simpleName}")
+            Type.NUMBER
+        }
     }
 
 val IdentifierContext.baseName
@@ -42,5 +47,8 @@ val IdentifierContext.type
         null -> Type.NUMBER
         BasicLexer.PERCENT -> Type.NUMBER
         BasicLexer.DOLLAR -> Type.STRING
-        else -> error("")
+        else -> {
+            logger.error("Unknown sigil: '${sigil.text}'")
+            Type.NUMBER
+        }
     }

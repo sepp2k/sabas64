@@ -2,17 +2,22 @@ package org.sabas64.cfg
 
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.ParseTreeWalker
+import org.apache.logging.log4j.LogManager
 import org.sabas64.*
 import org.sabas64.BasicParser.*
 import java.util.ArrayDeque
 
 class CfgBuilder private constructor(private val issueReporter: IssueReporter) : BasicBaseVisitor<Unit>() {
     private class BasicBlockImpl(override val isProgramEntry: Boolean) : BasicBlock {
+        private val logger = LogManager.getLogger()
         private lateinit var term: Terminator
         override val simpleStatements: MutableList<SimpleStatement> = mutableListOf()
         override var terminator: Terminator
             get() = term
             set(value) {
+                if (::term.isInitialized) {
+                    logger.error("Overridden terminator from $term to $value")
+                }
                 term = value
                 for (successor in value.successors) {
                     (successor as BasicBlockImpl).predecessors.add(this)

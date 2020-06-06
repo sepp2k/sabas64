@@ -1,6 +1,7 @@
 package org.sabas64.rules
 
 import org.antlr.v4.runtime.tree.RuleNode
+import org.apache.logging.log4j.LogManager
 import org.sabas64.*
 import org.sabas64.BasicParser.*
 
@@ -43,6 +44,8 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
         )
     }
 
+    private val logger = LogManager.getLogger()
+
     private val expressionTypeChecker = object : BasicBaseVisitor<Type>() {
         override fun visitVariableExpression(variable: VariableExpressionContext): Type {
             return variable.identifier().type
@@ -77,8 +80,10 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
                     }
                     Type.NUMBER
                 }
-                else ->
-                    throw IllegalStateException("Unknown type of function ${func.javaClass.simpleName}")
+                else -> {
+                    logger.error("Unknown type of function: ${func.javaClass.simpleName}")
+                    Type.NUMBER
+                }
             }
         }
 
@@ -117,8 +122,10 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
                 expectType(expression.rhs, operandType)
                 operandType
             }
-            else ->
-                throw IllegalStateException("Unknown operator ${expression.operator.text}")
+            else -> {
+                logger.error("Unknown operator: ${expression.operator.text}")
+                Type.NUMBER
+            }
         }
 
         override fun visitPrefixExpression(expression: PrefixExpressionContext): Type {
@@ -127,7 +134,8 @@ class TypeChecker(private val issueReporter: IssueReporter) : BasicBaseListener(
         }
 
         override fun visitChildren(node: RuleNode): Type {
-            throw IllegalStateException("Unknown type of expression ${node.javaClass.simpleName}")
+            logger.error("Unknown type of expression: ${node.javaClass.simpleName}")
+            return Type.NUMBER
         }
     }
 

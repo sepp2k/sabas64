@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="StdErr" target="SYSTEM_ERR">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+	<File name="DebugLog" fileName="${sys:java.io.tmpdir}/sabas64-${date:yyyy-MM-dd-HH-mm-ss.SSS}.log" immediateFlush="false" append="false">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="debug" additivity="false">
+            <AppenderRef ref="StdErr" level="fatal"/>
+            <AppenderRef ref="DebugLog"/>
+        </Root>
+    </Loggers>
+</Configuration>

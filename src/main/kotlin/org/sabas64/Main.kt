@@ -4,9 +4,13 @@ import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import org.antlr.v4.runtime.CharStreams
+import org.apache.logging.log4j.LogManager
 import kotlin.system.exitProcess
 
+private val logger = LogManager.getLogger()
+
 fun intMain(args: Array<String>): Int {
+    logger.info("Command line arguments: ${args.contentToString()}")
     var fileNameIndex = 0
     var outputJson = false
     if (args.isNotEmpty() && args[0] == "--json") {
