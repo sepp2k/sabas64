@@ -23,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build
-        run: ./gradlew distZip
+        run: ./gradlew distZip distTar
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -37,7 +37,7 @@ jobs:
       - name: Get version
         id: get_version
         run: "./gradlew properties | grep '^version:' | sed 's/version: /::set-output name=version::/'"
-      - name: Upload Release Asset
+      - name: Upload Release Zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,3 +46,12 @@ jobs:
           asset_path: ./build/distributions/sabas64-${{ steps.get_version.outputs.version }}.zip
           asset_name: sabas64.zip
           asset_content_type: application/zip
+      - name: Upload Release Tar
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/distributions/sabas64-${{ steps.get_version.outputs.version }}.tar
+          asset_name: sabas64.tar
+          asset_content_type: application/x-tar
