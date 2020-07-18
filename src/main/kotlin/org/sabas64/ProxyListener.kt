@@ -4,7 +4,13 @@ import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.TerminalNode
 
-class ProxyListener(private val listeners: List<BasicListener>) : BasicBaseListener() {
+class ProxyListener() : BasicBaseListener() {
+    private val listeners: MutableList<BasicListener> = mutableListOf()
+
+    fun registerListener(listener: BasicListener) {
+        listeners.add(listener)
+    }
+
     override fun enterEveryRule(ctx: ParserRuleContext) {
         for (listener in listeners) {
             listener.enterEveryRule(ctx)
